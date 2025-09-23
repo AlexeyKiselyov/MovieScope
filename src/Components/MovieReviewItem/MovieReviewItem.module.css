@@ -1,0 +1,53 @@
+.autorWrapper {
+  margin-bottom: 20px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.autorAvatar {
+  padding: 2px;
+
+  width: 40px;
+  aspect-ratio: 1/1;
+
+  object-fit: cover;
+  object-position: center;
+
+  border-radius: 50%;
+  border: 2px solid transparent;
+
+  background: linear-gradient(45deg, #8b3dff, #c59eff);
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.reviewsAutor {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.reviewsContent {
+  max-height: 50px;
+
+  font-size: clamp(0.88rem, calc(0.84rem + 0.18vw), 1rem);
+  line-height: 1.4;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  text-indent: 30px;
+  text-align: justify;
+  hyphens: auto;
+
+  overflow: hidden;
+
+  position: relative;
+
+  transition: max-height 0.3s ease-in-out;
+}
+
+.reviewsContent.expanded {
+  white-space: normal;
+  max-height: 1500px;
+}

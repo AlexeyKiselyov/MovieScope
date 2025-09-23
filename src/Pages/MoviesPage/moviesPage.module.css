@@ -1,0 +1,114 @@
+.titleWrapper {
+  margin-bottom: 30px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  color: #fff;
+}
+
+.title {
+  font-size: clamp(1.63rem, calc(1.47rem + 0.77vw), 2.25rem);
+  font-weight: 700;
+
+  position: relative;
+}
+
+.title::after {
+  content: '';
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  height: 4px;
+
+  background: linear-gradient(90deg, #8b3dff, #b57aff);
+
+  border-radius: 2px;
+}
+
+.form {
+  display: block;
+
+  width: 100%;
+  max-width: 400px;
+
+  margin: 0px auto 40px;
+
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 10px 12px 44px;
+
+  border: none;
+  border-radius: 6px;
+
+  color: #000;
+  font-size: 20px;
+
+  outline: none;
+
+  background-color: #fff;
+
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+  transition: box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.38);
+  }
+}
+
+.button {
+  height: 100%;
+  width: 40px;
+
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: none;
+
+  background-color: transparent;
+}
+
+.button:hover,
+.button:focus,
+.button:focus-visible {
+  border-color: transparent;
+  outline: none;
+}
+
+.searchIcon {
+  position: absolute;
+
+  color: #000;
+
+  animation: orbit 4s linear infinite;
+
+  transition: all 0.2s ease-in-out;
+}
+
+.button:hover .searchIcon,
+.button:focus .searchIcon {
+  animation-play-state: paused;
+}
+
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg) translateX(1px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(1px) rotate(-360deg);
+  }
+}

@@ -1,0 +1,122 @@
+.castWrapper {
+  padding: 30px;
+  margin-bottom: 40px;
+
+  color: #fff;
+
+  background-color: #00000055;
+  backdrop-filter: blur(5px);
+
+  border-radius: 8px;
+
+  box-shadow: 0px 0px 10px 4px rgba(210, 180, 255, 0.577);
+}
+
+.castTitleWrapper {
+  margin-bottom: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.castTitle {
+  font-size: clamp(1.63rem, calc(1.47rem + 0.77vw), 2.25rem);
+  font-weight: 700;
+
+  position: relative;
+}
+
+.castTitle::after {
+  content: '';
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  height: 4px;
+
+  background: linear-gradient(90deg, #8b3dff, #b57aff);
+
+  border-radius: 2px;
+}
+
+.castList {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.castItem {
+  width: 100%;
+  max-width: 240px;
+
+  border-radius: 8px;
+  border: 1px solid #fff;
+
+  text-align: center;
+
+  box-shadow: 0px 0px 10px 4px rgba(210, 180, 255, 0.577);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  overflow: hidden;
+}
+
+.castItem:hover {
+  box-shadow: 0px 0px 10px 6px rgba(210, 180, 255, 0.577);
+}
+
+.actorImageWrapper {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-bottom: 1px solid #fff;
+
+  aspect-ratio: 500 / 750;
+
+  overflow: hidden;
+}
+
+.castImage {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  transition: transform 1.5s ease-in-out;
+}
+
+.castItem:hover .castImage {
+  transform: scale(1.1);
+}
+
+.actorInfo {
+  padding: 6px 8px;
+
+  background-color: #00000055;
+  backdrop-filter: blur(5px);
+
+  position: relative;
+  z-index: 10;
+
+  overflow: hidden;
+}
+
+.actorName {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.noCastText {
+  text-align: center;
+  font-size: clamp(1.25rem, calc(1.11rem + 0.71vw), 1.75rem);
+  font-weight: 500;
+}

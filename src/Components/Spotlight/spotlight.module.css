@@ -1,0 +1,48 @@
+.spotlight {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: -1;
+
+  width: 100vw;
+  height: 100vh;
+
+  pointer-events: none;
+
+  overflow: hidden;
+
+  background-color: #000;
+  background: url('../../images/cinema_bg.jpg') no-repeat center/cover;
+}
+
+.spotlight::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200vw;
+  height: 200vh;
+  background: radial-gradient(
+    circle at 70% 30%,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.1) 20%,
+    transparent 60%
+  );
+  animation: sweep 30s infinite alternate ease-in-out;
+  transform-origin: 70% 30%;
+}
+
+@keyframes sweep {
+  0% {
+    transform: rotate(-15deg) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: rotate(5deg) scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(15deg) scale(1);
+    opacity: 0.8;
+  }
+}

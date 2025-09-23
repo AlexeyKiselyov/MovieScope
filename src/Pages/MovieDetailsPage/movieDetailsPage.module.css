@@ -1,0 +1,272 @@
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  padding: 4px 16px 4px 12px;
+  margin-bottom: 20px;
+
+  color: white;
+  font-size: 20px;
+
+  border: none;
+  border-radius: 40px;
+
+  background-color: #8b3dff;
+
+  transition: all 0.2s ease-in-out;
+}
+
+.backLink:hover,
+.backLink:focus {
+  color: white;
+
+  background-color: #7318fc;
+}
+
+.detailsWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+
+  margin-bottom: 30px;
+
+  font-size: clamp(1.13rem, calc(1.02rem + 0.54vw), 1.5rem);
+  font-weight: 500;
+  text-indent: 30px;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.posterImageWrapper {
+  position: relative;
+  min-width: 25vw;
+
+  border-radius: 8px;
+
+  box-shadow: 2px 4px 10px rgba(210, 180, 255, 0.577);
+
+  overflow: hidden;
+}
+
+.posterImage {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+
+  margin: 0px auto;
+}
+
+.movieInfo {
+  padding: 30px 20px;
+
+  color: #fff;
+
+  background-color: #00000055;
+  backdrop-filter: blur(5px);
+
+  border-radius: 8px;
+
+  box-shadow: 0px 0px 10px 4px rgba(210, 180, 255, 0.577);
+}
+
+.titleWrapper {
+  margin-bottom: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.titleImage {
+  transform: rotate(90deg);
+}
+
+.movieTitle {
+  position: relative;
+
+  font-size: clamp(1.63rem, calc(1.47rem + 0.77vw), 2.25rem);
+  font-weight: 700;
+  text-indent: 0px;
+}
+
+.movieOverview {
+  margin-bottom: 10px;
+}
+
+.movieOverview ~ p {
+  margin-bottom: 10px;
+}
+
+.ratingText,
+.genreText {
+  padding-right: 8px;
+
+  font-weight: 700;
+}
+
+/* Rating badge over the poster */
+.ratingBadge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 48px;
+  height: 30px;
+  padding: 0 10px;
+  border-radius: 999px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1;
+  text-indent: 0px;
+  background: rgba(20, 20, 30, 0.65);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.good {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 180, 100, 0.9),
+    rgba(0, 140, 80, 0.9)
+  );
+}
+.medium {
+  background: linear-gradient(
+    135deg,
+    rgba(240, 170, 0, 0.95),
+    rgba(200, 120, 0, 0.95)
+  );
+}
+.bad {
+  background: linear-gradient(
+    135deg,
+    rgba(210, 30, 60, 0.95),
+    rgba(160, 20, 50, 0.95)
+  );
+}
+
+/* Genres as chips */
+.genresRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.genreChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.genreChip {
+  padding: 6px 14px;
+  background: #1b1228;
+  color: #e9dfff;
+  border: 2px solid rgba(210, 180, 255, 0.35);
+  border-radius: 999px;
+  font-size: 16px;
+  line-height: 1;
+  text-indent: 0px;
+}
+
+@media screen and (max-width: 630px) {
+  .detailsWrapper {
+    flex-direction: column;
+  }
+
+  .posterImageWrapper {
+    min-width: auto;
+    max-width: 60vw;
+  }
+}
+
+.additionalWrapper {
+  margin-bottom: 30px;
+  padding: 30px;
+
+  color: #fff;
+
+  background-color: #00000055;
+  backdrop-filter: blur(5px);
+
+  border-radius: 8px;
+
+  box-shadow: 0px 0px 10px 4px rgba(210, 180, 255, 0.577);
+}
+
+.additionalTitleWrapper {
+  margin-bottom: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.additionalTitle {
+  position: relative;
+
+  font-size: clamp(1.63rem, calc(1.47rem + 0.77vw), 2.25rem);
+}
+
+.additionalLink {
+  display: block;
+
+  font-size: clamp(1.5rem, calc(1.36rem + 0.71vw), 2rem);
+  font-weight: 500;
+
+  text-decoration: none;
+  position: relative;
+
+  transition: all ease-in-out 0.2s;
+}
+
+.additionalItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.additionalLink::after {
+  content: '';
+
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+
+  width: 100%;
+  height: 2px;
+
+  background-color: #8b3dff;
+
+  transform: scaleX(0);
+
+  transition: transform 0.2s ease-in-out;
+}
+
+.additionalLink:hover::after {
+  transform: scaleX(1);
+}
+
+.movieTitle::after,
+.additionalTitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #8b3dff, #b57aff);
+  border-radius: 2px;
+}

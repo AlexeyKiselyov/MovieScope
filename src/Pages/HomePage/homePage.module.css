@@ -1,0 +1,127 @@
+.titleWrapper {
+  margin-bottom: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.title {
+  display: inline-block;
+
+  padding-bottom: 10px;
+
+  font-size: clamp(1.63rem, calc(1.41rem + 1.08vw), 2.5rem);
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+
+  position: relative;
+}
+
+.title::after {
+  content: '';
+
+  position: absolute;
+  bottom: 0;
+
+  left: 0;
+  width: 100%;
+  height: 4px;
+
+  background: linear-gradient(90deg, #8b3dff, #b57aff);
+
+  border-radius: 2px;
+}
+
+.popcornImage {
+  width: 100px;
+
+  transform: rotate(-15deg);
+
+  animation: slight-shake 4s infinite alternate;
+  transform-origin: center center;
+}
+
+@keyframes slight-shake {
+  from {
+    transform: rotate(-15deg);
+  }
+  to {
+    transform: rotate(20deg);
+  }
+}
+
+.periodWrapper {
+  margin-bottom: 30px;
+
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+/* Toggle with sliding indicator */
+.toggle {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 0;
+
+  width: 220px;
+  height: 40px;
+  padding: 4px;
+  border-radius: 50px;
+
+  background: #ffffff;
+  box-shadow: 0 4px 16px rgba(139, 61, 255, 0.25);
+}
+
+.slider {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  height: calc(100% - 8px);
+  width: calc(50% - 4px);
+
+  border-radius: 50px;
+  background: linear-gradient(90deg, #8b3dff, #b57aff);
+  box-shadow: 0 6px 16px rgba(139, 61, 255, 0.4);
+
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Position the slider: default is Week (left). For Day move to the right */
+.dayActive .slider {
+  transform: translateX(100%);
+}
+
+.toggleBtn {
+  position: relative;
+  z-index: 1;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  height: 32px;
+  padding: 0 16px;
+  border-radius: 50px;
+  font-weight: 600;
+  color: #111;
+  cursor: pointer;
+  transition: color 180ms ease-in-out;
+}
+
+.toggleBtn:hover {
+  color: #8b3dff;
+}
+
+.toggleBtn.active {
+  color: #fff;
+}
+
+.toggleBtn:focus-visible {
+  outline: 2px solid rgba(139, 61, 255, 0.75);
+  outline-offset: 3px;
+  border-radius: 50px;
+}

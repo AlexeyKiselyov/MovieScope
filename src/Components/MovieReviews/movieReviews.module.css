@@ -1,0 +1,116 @@
+.reviewsWrapper {
+  padding: 30px;
+
+  margin-bottom: 40px;
+
+  color: #fff;
+
+  background-color: #00000055;
+  backdrop-filter: blur(5px);
+
+  border-radius: 8px;
+
+  box-shadow: 0px 0px 10px 4px rgba(210, 180, 255, 0.577);
+}
+
+.reviewTitleWrapper {
+  margin-bottom: 30px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.reviewsTitle {
+  font-size: clamp(1.63rem, calc(1.47rem + 0.77vw), 2.25rem);
+  font-weight: 700;
+
+  position: relative;
+}
+
+.reviewsTitle::after {
+  content: '';
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: 100%;
+  height: 4px;
+
+  background: linear-gradient(90deg, #8b3dff, #b57aff);
+
+  border-radius: 2px;
+}
+
+.reviewsList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.reviewsItem {
+  max-width: 80%;
+
+  padding: 15px;
+  margin-bottom: 20px;
+
+  border-radius: 15px;
+
+  background: linear-gradient(45deg, #a86dff91, #b482ff95);
+
+  backdrop-filter: blur(5px);
+
+  box-shadow: 0px 0px 0px 0px rgba(210, 180, 255, 0.577);
+
+  font-size: 18px;
+
+  cursor: pointer;
+
+  position: relative;
+
+  transition: box-shadow 0.2s ease-in-out;
+
+  &:hover {
+    box-shadow: 0px 0px 6px 1px rgba(210, 180, 255, 0.577);
+  }
+}
+
+@media (max-width: 600px) {
+  .reviewsItem {
+    max-width: 90%;
+  }
+}
+
+.reviewsItem:nth-child(even) {
+  margin-left: auto;
+}
+
+.reviewsItem::before {
+  content: '';
+
+  position: absolute;
+  bottom: -20px;
+  left: 10px;
+
+  width: 20px;
+  height: 20px;
+
+  background: linear-gradient(45deg, #a86dff91, #b482ff95);
+
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.reviewsItem:nth-child(even)::before {
+  left: auto;
+  right: 10px;
+
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+
+.noReviesText {
+  text-align: center;
+  font-size: clamp(1.25rem, calc(1.11rem + 0.71vw), 1.75rem);
+  font-weight: 500;
+}

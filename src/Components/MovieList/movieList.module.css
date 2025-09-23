@@ -1,0 +1,149 @@
+.list {
+  padding-bottom: 30px;
+
+  height: 100%;
+  min-height: calc(100vh - 200px);
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 50px;
+  justify-content: center;
+  justify-items: center;
+}
+
+.item {
+  width: 100%;
+  max-width: 300px;
+
+  position: relative;
+
+  aspect-ratio: 2 / 3;
+
+  border-radius: 8px;
+
+  overflow: hidden;
+
+  box-shadow: 2px 4px 10px rgba(210, 180, 255, 0.577);
+
+  transition: box-shadow 0.3s ease, opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+
+  opacity: 0;
+  transform: translateY(20px) scale(0.98);
+}
+
+.item.visible {
+  opacity: 1;
+
+  transform: translateY(0) scale(1);
+}
+
+.item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(210, 180, 255, 0.577);
+}
+
+.poster {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+/* Ensure link fills the card and has a visible focus for keyboard users */
+.link {
+  position: absolute;
+  inset: 0;
+  display: block;
+}
+
+.link:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.9);
+  outline-offset: -4px;
+  box-shadow: 0 0 0 3px rgba(103, 80, 164, 0.6);
+  border-radius: 8px;
+}
+
+.movieName {
+  padding-left: 5px;
+
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+
+  height: 70px;
+  width: 90%;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+/* Rating badge in the top-right corner */
+.ratingBadge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  min-width: 42px;
+  height: 28px;
+  padding: 0 8px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1;
+  color: #fff;
+
+  background: rgba(20, 20, 30, 0.65);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Color modifiers: exported as separate classes for CSS Modules usage */
+.good {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 180, 100, 0.85),
+    rgba(0, 140, 80, 0.85)
+  );
+}
+
+.medium {
+  background: linear-gradient(
+    135deg,
+    rgba(240, 170, 0, 0.9),
+    rgba(200, 120, 0, 0.9)
+  );
+}
+
+.bad {
+  background: linear-gradient(
+    135deg,
+    rgba(210, 30, 60, 0.9),
+    rgba(160, 20, 50, 0.9)
+  );
+}
+
+.starIcon {
+  margin-right: 4px;
+}
