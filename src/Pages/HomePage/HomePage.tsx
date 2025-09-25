@@ -14,6 +14,15 @@ import css from './homePage.module.css';
 import Footer from '../../Components/Footer/Footer';
 import { HomeSEO } from '../../Components/SEO/presets';
 
+const STORAGE_KEY = 'homePageState';
+
+interface SavedState {
+  period: 'week' | 'day';
+  page: number;
+  movieId: string;
+  movies: Movie[];
+}
+
 export default function HomePage() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(false);
@@ -21,6 +30,25 @@ export default function HomePage() {
   const [period, setPeriod] = useState<'week' | 'day'>('week');
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState<number | null>(null);
+  const [restoredMovieId, setRestoredMovieId] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Restore state from localStorage
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        const parsed: SavedState = JSON.parse(saved);
+        setMovies(parsed.movies);
+        setPeriod(parsed.period);
+        setPage(parsed.page);
+        setRestoredMovieId(parsed.movieId);
+        // Clear after restoring
+        localStorage.removeItem(STORAGE_KEY);
+      } catch (e) {
+        console.error('Failed to parse saved state', e);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -40,6 +68,29 @@ export default function HomePage() {
       controller.abort();
     };
   }, [period, page]);
+
+  useEffect(() => {
+    if (restoredMovieId !== null && movies.length > 0) {
+      // Scroll to the saved movie card
+      const movieIndex = movies.findIndex(
+        movie => movie.id === restoredMovieId
+      );
+      if (movieIndex !== -1) {
+        const movieElement = document.querySelector(
+          `[data-movie-id="${restoredMovieId}"]`
+        );
+        if (movieElement) {
+          setTimeout(() => {
+            movieElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'center',
+            });
+            setRestoredMovieId(null);
+          }, 200);
+        }
+      }
+    }
+  }, [restoredMovieId, movies]);
 
   const handleTrendPeriod = (newPeriod: 'week' | 'day') => {
     if (newPeriod === period) return;
@@ -98,7 +149,12 @@ export default function HomePage() {
           </div>
         </div>
 
-        <MovieList movies={movies} />
+        <MovieList
+          movies={movies}
+          period={period}
+          page={page}
+          pageType="home"
+        />
 
         {movies.length > 0 && isMorePages && (
           <LoadMoreBtn onMorePage={handlePage} />

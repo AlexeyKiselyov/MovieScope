@@ -17,18 +17,43 @@ import css from './moviesPage.module.css';
 import LoadMoreBtn from '../../Components/LoadMoreBtn/LoadMoreBtn';
 import { MoviesSEO } from '../../Components/SEO/presets';
 
+const STORAGE_KEY_MOVIES = 'moviesPageState';
+
+interface SavedStateMovies {
+  query: string;
+  page: number;
+  movieId: string;
+  movies: Movie[];
+}
+
 export default function MoviesPage() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState<number | null>(null);
+  const [restoredMovieId, setRestoredMovieId] = useState<string | null>(null);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') ?? '';
-  // Title handled by MoviesSEO preset
 
-  // SEO handled via MoviesSEO preset
+  useEffect(() => {
+    // Restore state from localStorage
+    const saved = localStorage.getItem(STORAGE_KEY_MOVIES);
+    if (saved) {
+      try {
+        const parsed: SavedStateMovies = JSON.parse(saved);
+        setMovies(parsed.movies);
+        setPage(parsed.page);
+        setRestoredMovieId(parsed.movieId);
+        setSearchParams({ query: parsed.query });
+        // Clear after restoring
+        localStorage.removeItem(STORAGE_KEY_MOVIES);
+      } catch (e) {
+        console.error('Failed to parse saved state', e);
+      }
+    }
+  }, [setSearchParams]);
 
   useEffect(() => {
     if (query === '') {
@@ -52,6 +77,21 @@ export default function MoviesPage() {
       controller.abort();
     };
   }, [query, page]);
+
+  useEffect(() => {
+    if (restoredMovieId !== null && movies.length > 0) {
+      // Scroll to the saved movie card
+      const movieElement = document.querySelector(
+        `[data-movie-id="${restoredMovieId}"]`
+      );
+      if (movieElement) {
+        setTimeout(() => {
+          movieElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          setRestoredMovieId(null);
+        }, 200);
+      }
+    }
+  }, [restoredMovieId, movies]);
 
   const onFormSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
@@ -107,7 +147,12 @@ export default function MoviesPage() {
           </button>
         </form>
 
-        <MovieList movies={movies} />
+        <MovieList
+          movies={movies}
+          page={page}
+          pageType="movies"
+          query={query}
+        />
 
         {movies.length > 0 && isMorePages && (
           <LoadMoreBtn onMorePage={handlePage} />

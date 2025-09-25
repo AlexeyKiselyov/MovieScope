@@ -25,6 +25,26 @@ function SmoothScrolling({ children }: { children: React.ReactNode }) {
 
     lenisInstance.current = lenis; // Store the instance in ref
 
+    // Optional: expose for debugging/programmatic control
+    // @ts-expect-error attach for debugging only
+    window.__lenis = lenis;
+
+    // Listen for custom events to control scrolling from anywhere
+    const handleScrollTop = () => {
+      try {
+        lenis.scrollTo(0, { duration: 1.2 });
+      } catch (_) {
+        // Fallback if anything goes wrong
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    };
+
+    // Using a custom event name to avoid collisions
+    window.addEventListener(
+      'lenis:scrollTop',
+      handleScrollTop as unknown as EventListener
+    );
+
     // This is the animation loop for Lenis
     function raf(time: DOMHighResTimeStamp) {
       lenis.raf(time); // Tell Lenis to update its scroll position based on the current time
@@ -35,6 +55,10 @@ function SmoothScrolling({ children }: { children: React.ReactNode }) {
 
     // Cleanup function: destroy Lenis instance when component unmounts
     return () => {
+      window.removeEventListener(
+        'lenis:scrollTop',
+        handleScrollTop as unknown as EventListener
+      );
       lenis.destroy();
       lenisInstance.current = null;
     };

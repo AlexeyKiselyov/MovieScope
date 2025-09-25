@@ -47,6 +47,15 @@ export default function MovieDetailsPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    try {
+      window.dispatchEvent(new Event('lenis:scrollTop'));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (_) {
+      window.scrollTo({ top: 0 });
+    }
+  }, [movieId]);
+
+  useEffect(() => {
     if (!movieId) return;
 
     const controller = new AbortController();
@@ -75,8 +84,6 @@ export default function MovieDetailsPage() {
 
   const { genres, poster_path, overview, original_title, vote_average } =
     movieDetails;
-
-  // SEO handled via MovieDetailsSEO preset
 
   return (
     <>

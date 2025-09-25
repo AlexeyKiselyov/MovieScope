@@ -8,31 +8,61 @@ import placeholderImage from '../../images/Placeholder_Movie.jpg';
 
 import { Movie } from '../../types/types';
 
-export function MovieList({ movies }: { movies: Movie[] }) {
+const STORAGE_KEY_HOME = 'homePageState';
+const STORAGE_KEY_MOVIES = 'moviesPageState';
+
+export function MovieList({
+  movies,
+  period = 'week',
+  page = 1,
+  pageType = 'home',
+  query,
+}: {
+  movies: Movie[];
+  period?: 'week' | 'day';
+  page?: number;
+  pageType?: 'home' | 'movies';
+  query?: string;
+}) {
   const [visibleCount, setVisibleCount] = useState(0);
   const location = useLocation();
 
+  const handleCardClick = (movieId: string) => {
+    const key = pageType === 'home' ? STORAGE_KEY_HOME : STORAGE_KEY_MOVIES;
+    const state =
+      pageType === 'home'
+        ? { period, page, movieId, movies }
+        : { query, page, movieId, movies };
+    localStorage.setItem(key, JSON.stringify(state));
+  };
+
   useEffect(() => {
-    if (visibleCount >= movies.length) return;
+    if (page === 1) {
+      // Reset and animate only for the first page
+      setVisibleCount(0);
+      if (movies.length === 0) return;
 
-    const newItemsCount = movies.length - visibleCount;
-    let index = 0;
+      let index = 0;
 
-    const interval = setInterval(() => {
-      index++;
-      setVisibleCount(prev => {
-        const next = prev + 1;
-        if (next >= movies.length) clearInterval(interval);
-        return next;
-      });
+      const interval = setInterval(() => {
+        index++;
+        setVisibleCount(prev => {
+          const next = prev + 1;
+          if (next >= movies.length) clearInterval(interval);
+          return next;
+        });
 
-      if (index >= newItemsCount) {
-        clearInterval(interval);
-      }
-    }, 100);
+        if (index >= movies.length) {
+          clearInterval(interval);
+        }
+      }, 100);
 
-    return () => clearInterval(interval);
-  }, [movies, visibleCount]);
+      return () => clearInterval(interval);
+    } else {
+      // For subsequent pages, show all immediately
+      setVisibleCount(movies.length);
+    }
+  }, [movies, page]);
 
   return (
     <ul className={css.list}>
@@ -45,6 +75,8 @@ export function MovieList({ movies }: { movies: Movie[] }) {
             to={`/movies/${item.id}`}
             state={{ from: location }}
             className={css.link}
+            onClick={() => handleCardClick(item.id)}
+            data-movie-id={item.id}
             aria-label={`Open movie ${item.title}. Rating ${
               typeof item.vote_average === 'number'
                 ? item.vote_average.toFixed(1)
