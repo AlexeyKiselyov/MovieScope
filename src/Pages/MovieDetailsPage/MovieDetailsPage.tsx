@@ -24,14 +24,7 @@ import filmImagePlaceholder from '../../images/Placeholder_Movie.jpg';
 
 import css from './movieDetailsPage.module.css';
 import { MovieDetailsSEO } from '../../Components/SEO/presets';
-
-interface MovieDetails {
-  genres: { name: string }[];
-  poster_path: string;
-  overview: string;
-  original_title: string;
-  vote_average: number;
-}
+import { MovieDetails } from '../../types/types';
 
 export default function MovieDetailsPage() {
   const [movieDetails, setMovieDetails] = useState<MovieDetails | null>(null);
@@ -82,8 +75,14 @@ export default function MovieDetailsPage() {
     return <Loader loading={true} color="blue" />;
   }
 
-  const { genres, poster_path, overview, original_title, vote_average } =
-    movieDetails;
+  const {
+    genres,
+    poster_path,
+    overview,
+    original_title,
+    vote_average,
+    release_date,
+  } = movieDetails;
 
   return (
     <>
@@ -137,15 +136,29 @@ export default function MovieDetailsPage() {
                 <FcFilm size={40} className={css.titleImage} />
                 <h2 className={css.movieTitle}>{original_title}</h2>
               </div>
+
               <p className={css.movieOverview}>
                 {overview && overview.trim().length > 0
                   ? overview
                   : 'No overview available.'}
               </p>
+
               <p>
                 <span className={css.ratingText}>Rating:</span>
                 {typeof vote_average === 'number' ? vote_average.toFixed(1) : 0}
               </p>
+
+              <p>
+                <span className={css.dateText}>Release date:</span>
+                {release_date
+                  ? new Date(release_date).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                    })
+                  : 'Unknown'}
+              </p>
+
               <div className={css.genresRow}>
                 <span className={css.genreText}>Genres:</span>
                 {genres.length > 0 ? (

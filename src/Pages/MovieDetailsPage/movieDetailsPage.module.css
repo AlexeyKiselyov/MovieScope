@@ -101,7 +101,8 @@
 }
 
 .ratingText,
-.genreText {
+.genreText,
+.dateText {
   padding-right: 8px;
 
   font-weight: 700;

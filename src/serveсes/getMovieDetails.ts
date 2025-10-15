@@ -1,16 +1,10 @@
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
+import { MovieDetails } from '../types/types';
+
 const token: string = import.meta.env.VITE_TMDB_VIDEO_API_TOKEN;
 const basicUrl = 'https://api.themoviedb.org/3/movie/';
-
-interface MovieDetails {
-  genres: { name: string }[];
-  poster_path: string;
-  overview: string;
-  original_title: string;
-  vote_average: number;
-}
 
 async function getMovieDetails(
   setLoading: (loading: boolean) => void,
